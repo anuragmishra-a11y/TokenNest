@@ -1,205 +1,240 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>TokenNest – Fractional Property Marketplace (Demo)</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f5f5f5;
-        }
-        header {
-            background: #1e88e5;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        main {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 10px;
-        }
-        section {
-            background: white;
-            margin-bottom: 20px;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        h1, h2 {
-            margin-top: 0;
-        }
-        .property-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
-        .property-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 10px;
-        }
-        .property-card h3 {
-            margin: 0 0 5px 0;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            box-sizing: border-box;
-        }
-        .button {
-            display: inline-block;
-            padding: 10px 16px;
-            background: #1e88e5;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-top: 15px;
-            cursor: pointer;
-            border: none;
-        }
-        .result-box {
-            margin-top: 15px;
-            padding: 10px;
-            background: #e3f2fd;
-            border-radius: 8px;
-        }
-        .fee-box {
-            background: #fff3e0;
-            padding: 10px;
-            border-radius: 8px;
-        }
-        footer {
-            text-align: center;
-            padding: 15px;
-            font-size: 12px;
-            color: #777;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>TokenNest – Fractional Property Marketplace</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body {
+        margin: 0;
+        font-family: 'Inter', Arial, sans-serif;
+        background: #f8f9fc;
+        color: #333;
+    }
+
+    /* NAVBAR */
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 40px;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    nav a {
+        text-decoration: none;
+        color: #333;
+        margin-left: 20px;
+        font-weight: 500;
+    }
+
+    /* HERO SECTION */
+    .hero {
+        background: linear-gradient(135deg, #1e88e5, #42a5f5);
+        padding: 80px 40px;
+        text-align: center;
+        color: white;
+    }
+    .hero h1 {
+        font-size: 48px;
+        margin-bottom: 10px;
+    }
+    .hero p {
+        font-size: 20px;
+        max-width: 700px;
+        margin: auto;
+        opacity: 0.9;
+    }
+
+    /* SECTION */
+    section {
+        max-width: 1100px;
+        margin: 40px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+        margin-top: 0;
+        font-size: 28px;
+        color: #1e88e5;
+    }
+
+    /* PROPERTY GRID */
+    .property-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .property-card {
+        background: #fafafa;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .property-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+    .property-card .info {
+        padding: 15px;
+    }
+    .property-card h3 {
+        margin: 0;
+        font-size: 20px;
+        color: #333;
+    }
+    .property-card p {
+        margin: 5px 0;
+        font-size: 14px;
+        opacity: 0.8;
+    }
+
+    /* CALCULATOR */
+    label {
+        display: block;
+        margin-top: 15px;
+        font-weight: 600;
+    }
+    input, select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+    .button {
+        margin-top: 20px;
+        background: #1e88e5;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .result-box {
+        margin-top: 20px;
+        background: #e3f2fd;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    /* FOOTER */
+    footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 14px;
+        opacity: 0.7;
+        margin-top: 40px;
+    }
+</style>
 </head>
 <body>
 
-<header>
-    <h1>TokenNest</h1>
-    <p>Fractional Property Ownership in Baltics, Nordics & EU – Demo for Investors</p>
-</header>
+<!-- NAVBAR -->
+<nav>
+    <div style="font-size:22px; font-weight:700; color:#1e88e5;">TokenNest</div>
+    <div>
+        <a href="#properties">Properties</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#fees">Fees</a>
+        <a href="#contact">Contact</a>
+    </div>
+</nav>
 
-<main>
+<!-- HERO -->
+<div class="hero">
+    <h1>Invest in Real Estate from €50</h1>
+    <p>Fractional ownership in verified Baltic, Nordic & EU properties. Transparent, liquid, and accessible for everyone.</p>
+</div>
 
-    <section>
-        <h2>Concept</h2>
-        <p>
-            TokenNest allows investors to buy fractional ownership in specific properties
-            across Baltic, Nordic and EU countries, starting from as low as €50.
-        </p>
-        <p>
-            Unlike traditional REITs, investors know exactly which property they own.
-            Owners and developers can list properties to raise funds, while investors
-            can buy, sell, or swap their shares.
-        </p>
-    </section>
-
-    <section>
-        <h2>Example Properties (Demo Data)</h2>
-        <div class="property-list">
-            <div class="property-card">
+<!-- PROPERTIES -->
+<section id="properties">
+    <h2>Available Properties</h2>
+    <div class="property-grid">
+        <div class="property-card">
+            <img src="https://images.unsplash.com/photo-1560448204-0bbfb2f0c9f1" alt="Riga Apartment">
+            <div class="info">
                 <h3>Riga City Apartment</h3>
                 <p>Location: Riga, Latvia</p>
-                <p>Type: Residential</p>
-                <p>Total Price: €150,000</p>
-                <p>Expected Annual Yield: 6%</p>
+                <p>Price: €150,000</p>
+                <p>Yield: 6%</p>
             </div>
-            <div class="property-card">
+        </div>
+
+        <div class="property-card">
+            <img src="https://images.unsplash.com/photo-1501183638710-841dd1904471" alt="Vilnius Office">
+            <div class="info">
                 <h3>Vilnius Office Space</h3>
                 <p>Location: Vilnius, Lithuania</p>
-                <p>Type: Commercial</p>
-                <p>Total Price: €500,000</p>
-                <p>Expected Annual Yield: 7.5%</p>
+                <p>Price: €500,000</p>
+                <p>Yield: 7.5%</p>
             </div>
-            <div class="property-card">
+        </div>
+
+        <div class="property-card">
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267" alt="Stockholm House">
+            <div class="info">
                 <h3>Stockholm Suburban House</h3>
                 <p>Location: Stockholm, Sweden</p>
-                <p>Type: Residential</p>
-                <p>Total Price: €800,000</p>
-                <p>Expected Annual Yield: 5%</p>
+                <p>Price: €800,000</p>
+                <p>Yield: 5%</p>
             </div>
         </div>
-        <p style="margin-top:10px;font-size:12px;">
-            *These are demo properties for illustration only. Real listings would be dynamic and connected to a backend.
-        </p>
-    </section>
+    </div>
+</section>
 
-    <section>
-        <h2>Investment Calculator (Demo)</h2>
-        <p>Use this calculator to estimate annual yield and profit for a given property.</p>
+<!-- CALCULATOR -->
+<section id="calculator">
+    <h2>Investment Calculator</h2>
 
-        <label>Property Total Price (€)</label>
-        <input type="number" id="propertyPrice" placeholder="e.g. 150000">
+    <label>Property Price (€)</label>
+    <input type="number" id="propertyPrice">
 
-        <label>Expected Annual Yield (%)</label>
-        <input type="number" id="yieldPercent" placeholder="e.g. 6">
+    <label>Expected Annual Yield (%)</label>
+    <input type="number" id="yieldPercent">
 
-        <label>Your Investment Amount (€)</label>
-        <input type="number" id="investmentAmount" placeholder="e.g. 5000">
+    <label>Your Investment (€)</label>
+    <input type="number" id="investmentAmount">
 
-        <label>Investor Type</label>
-        <select id="investorType">
-            <option value="individual">Individual (limit €50 – €5,000,000)</option>
-            <option value="organisation">Organisation (limit €1,500 – €15,000,000)</option>
-        </select>
+    <label>Investor Type</label>
+    <select id="investorType">
+        <option value="individual">Individual (€50–€5M)</option>
+        <option value="organisation">Organisation (€1,500–€15M)</option>
+    </select>
 
-        <button class="button" onclick="calculateYield()">Calculate</button>
+    <button class="button" onclick="calculateYield()">Calculate</button>
 
-        <div class="result-box" id="calcResult">
-            Enter values above and click "Calculate".
-        </div>
-    </section>
+    <div class="result-box" id="calcResult">
+        Enter values and click Calculate.
+    </div>
+</section>
 
-    <section>
-        <h2>Fees & Wallet (Concept)</h2>
-        <div class="fee-box">
-            <p><strong>Wallet:</strong> Investors hold credits equivalent to euros. All transactions are done using these credits.</p>
-            <p><strong>Fees:</strong></p>
-            <ul>
-                <li>2% annual fee on Assets Under Management (AUM).</li>
-                <li>0.5% commission on investor profit.</li>
-                <li>0.2% fee on each buy/sell transaction.</li>
-            </ul>
-            <p style="font-size:12px;">
-                *This demo does not process real payments. In production, these fees would be calculated and applied via a secure backend.
-            </p>
-        </div>
-    </section>
+<!-- FEES -->
+<section id="fees">
+    <h2>Fees & Wallet</h2>
+    <p>• 2% annual AUM fee</p>
+    <p>• 0.5% commission on profit</p>
+    <p>• 0.2% transaction fee</p>
+</section>
 
-    <section>
-        <h2>Swap & Liquidity (Concept)</h2>
-        <p>
-            Investors can sell their shares, swap with other investors or developers,
-            and pay or receive the difference if the property values are not equal.
-        </p>
-        <p>
-            This creates a liquid marketplace for fractional property ownership,
-            while keeping minimum investment as low as €50 for individuals and
-            €1,500 for organisations.
-        </p>
-    </section>
-
-    <section>
-        <h2>Contact</h2>
-        <p>Name: Anurag Mishra</p>
-        <p>Email: (add your email here)</p>
-        <p>Location: Baltics / EU</p>
-    </section>
-
-</main>
+<!-- CONTACT -->
+<section id="contact">
+    <h2>Contact</h2>
+    <p>Name: Anurag Mishra</p>
+    <p>Email: (add your email)</p>
+</section>
 
 <footer>
-    TokenNest – Demo website for investors. No real transactions. All numbers are illustrative.
+    © 2026 TokenNest — Demo Version
 </footer>
 
 <script>
@@ -210,46 +245,39 @@ function calculateYield() {
     const investorType = document.getElementById('investorType').value;
     const resultBox = document.getElementById('calcResult');
 
-    if (isNaN(propertyPrice) || isNaN(yieldPercent) || isNaN(investmentAmount)) {
-        resultBox.innerHTML = "Please fill all fields with valid numbers.";
+    if (!propertyPrice || !yieldPercent || !investmentAmount) {
+        resultBox.innerHTML = "Please fill all fields.";
         return;
     }
 
-    // Check limits
-    if (investorType === "individual") {
-        if (investmentAmount < 50 || investmentAmount > 5000000) {
-            resultBox.innerHTML = "Individual investment must be between €50 and €5,000,000.";
-            return;
-        }
-    } else {
-        if (investmentAmount < 1500 || investmentAmount > 15000000) {
-            resultBox.innerHTML = "Organisation investment must be between €1,500 and €15,000,000.";
-            return;
-        }
+    if (investorType === "individual" && (investmentAmount < 50 || investmentAmount > 5000000)) {
+        resultBox.innerHTML = "Individual investment must be €50–€5M.";
+        return;
+    }
+    if (investorType === "organisation" && (investmentAmount < 1500 || investmentAmount > 15000000)) {
+        resultBox.innerHTML = "Organisation investment must be €1,500–€15M.";
+        return;
     }
 
-    // Basic annual profit calculation
-    const annualPropertyProfit = propertyPrice * (yieldPercent / 100);
-    const ownershipShare = investmentAmount / propertyPrice;
-    const investorAnnualProfit = annualPropertyProfit * ownershipShare;
+    const annualProfit = propertyPrice * (yieldPercent / 100);
+    const share = investmentAmount / propertyPrice;
+    const investorProfit = annualProfit * share;
 
-    // Apply fees (conceptual)
-    const aumFee = investmentAmount * 0.02; // 2% AUM
-    const profitCommission = investorAnnualProfit * 0.005; // 0.5% on profit
-    const transactionFee = investmentAmount * 0.002; // 0.2% transaction
+    const aumFee = investmentAmount * 0.02;
+    const profitFee = investorProfit * 0.005;
+    const txFee = investmentAmount * 0.002;
 
-    const netAnnualProfit = investorAnnualProfit - aumFee - profitCommission - transactionFee;
+    const net = investorProfit - aumFee - profitFee - txFee;
 
     resultBox.innerHTML = `
-        <strong>Results (Demo):</strong><br>
-        Estimated annual property profit: €${annualPropertyProfit.toFixed(2)}<br>
-        Your ownership share: ${(ownershipShare * 100).toFixed(2)}%<br>
-        Your gross annual profit: €${investorAnnualProfit.toFixed(2)}<br>
-        AUM fee (2%): €${aumFee.toFixed(2)}<br>
-        Profit commission (0.5%): €${profitCommission.toFixed(2)}<br>
-        Transaction fee (0.2%): €${transactionFee.toFixed(2)}<br>
-        <strong>Net annual profit (after fees): €${netAnnualProfit.toFixed(2)}</strong><br>
-        <span style="font-size:12px;">*All calculations are illustrative and for demo purposes only.</span>
+        <strong>Results:</strong><br>
+        Annual Property Profit: €${annualProfit.toFixed(2)}<br>
+        Your Share: ${(share * 100).toFixed(2)}%<br>
+        Gross Profit: €${investorProfit.toFixed(2)}<br>
+        AUM Fee: €${aumFee.toFixed(2)}<br>
+        Profit Fee: €${profitFee.toFixed(2)}<br>
+        Transaction Fee: €${txFee.toFixed(2)}<br>
+        <strong>Net Annual Profit: €${net.toFixed(2)}</strong>
     `;
 }
 </script>
